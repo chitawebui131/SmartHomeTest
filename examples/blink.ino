@@ -1,11 +1,20 @@
-const int ledPin = 13; // Константа для номера виводу світлодіода
-int delayTime = 1000; // Змінна для часу затримки
+/*
+  blink_led.ino
+  -----------------
+  Simple Blink Example for CI/CD demonstration
+  Works with GitHub Actions and Arduino CLI.
+*/
+
+const int LED_PIN = 13;  // Built-in LED on most Arduino boards
+
 void setup() {
-pinMode(ledPin, OUTPUT); // Встановлює вивод як вихід
+  // Initialize the LED pin as output
+  pinMode(LED_PIN, OUTPUT);
 }
+
 void loop() {
-digitalWrite(ledPin, HIGH); // Увімкнення світлодіода
-delay(delayTime); // Затримка зберігається у змінній
-digitalWrite(ledPin, LOW); // Вимкнення світлодіода
-delay(delayTime); // Затримка
+  digitalWrite(LED_PIN, HIGH);   // Turn the LED on
+  delay(1000);                   // Wait 1 second
+  digitalWrite(LED_PIN, LOW);    // Turn the LED off
+  delay(1000);                   // Wait 1 second
 }
