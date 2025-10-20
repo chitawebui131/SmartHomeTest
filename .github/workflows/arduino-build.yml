@@ -1,4 +1,4 @@
-name: Arduino Build Check
+name: Arduino Auto Build
 
 on:
   push:
@@ -9,15 +9,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install Arduino CLI
-        uses: arduino/compile-sketches@v1
-
-      - name: Compile sketch for Arduino UNO
-        uses: arduino/compile-sketches@v1
+        uses: arduino/setup-arduino-cli@v1
         with:
-          fqbn: arduino:avr:uno
-          sketch-paths: |
-            .
+          version: latest
+
+      - name: Install AVR core
+        run: arduino-cli core install arduino:avr
+
+      - name: Compile all .ino sketches
+        run: |
+          for sketch in $(find . -name "*.ino"); do
+            echo "Compiling $sketch ..."
+            arduino-cli compile --fqbn arduino:avr:uno "$sketch"
+          done
